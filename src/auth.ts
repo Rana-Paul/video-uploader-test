@@ -12,20 +12,18 @@ export const {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
 
   callbacks: {
     async jwt({ token, account }) {
+        console.log(token, account);
+        
       if (token) {
         token.access_token = account?.access_token;
       }
       return token;
     },
-    async session({ session, token, user }) {
-      session.user.access_token = token.access_token;
-      return session;
-    },
+  },
+  session: {
+    strategy: "jwt",
   },
 });
